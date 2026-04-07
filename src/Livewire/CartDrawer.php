@@ -89,10 +89,10 @@ class CartDrawer extends Component
 
     private function loadCart(): void
     {
-        $this->items    = Cart::content();
+        $this->items = Cart::content();
         $this->subtotal = Cart::subtotal();
-        $this->tax      = Cart::tax();
-        $this->total    = Cart::total();
+        $this->tax = Cart::tax();
+        $this->total = Cart::total();
     }
 
     private function dispatchCartUpdated(): void

@@ -19,7 +19,7 @@ interface CartStorage
     /**
      * Persist cart items under the given key.
      *
-     * @param Collection<string, CartItem> $items
+     * @param  Collection<string, CartItem>  $items
      */
     public function put(string $key, Collection $items): void;
 

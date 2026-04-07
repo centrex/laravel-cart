@@ -6,7 +6,6 @@ namespace Centrex\Cart\Storage;
 
 use Centrex\Cart\CartItem;
 use Centrex\Cart\Contracts\CartStorage;
-use Illuminate\Contracts\Cookie\Factory as CookieFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cookie;
@@ -21,7 +20,7 @@ class CookieStorage implements CartStorage
     public function get(string $key): Collection
     {
         $cookieName = $this->cookieName($key);
-        $raw        = $this->request->cookie($cookieName);
+        $raw = $this->request->cookie($cookieName);
 
         if ($raw === null) {
             return collect();
@@ -46,8 +45,8 @@ class CookieStorage implements CartStorage
     public function put(string $key, Collection $items): void
     {
         $cookieName = $this->cookieName($key);
-        $lifetime   = (int) config('laravel-cart.cookie_lifetime', 43200);
-        $encoded    = base64_encode(serialize($items->all()));
+        $lifetime = (int) config('laravel-cart.cookie_lifetime', 43200);
+        $encoded = base64_encode(serialize($items->all()));
 
         Cookie::queue(Cookie::make($cookieName, $encoded, $lifetime));
     }

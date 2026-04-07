@@ -25,10 +25,10 @@ class CartController extends Controller
     public function store(AddCartItemRequest $request): CartItemResource
     {
         $item = $this->cart->add(
-            id:      $request->input('id'),
-            name:    $request->string('name')->toString(),
-            qty:     (int) $request->input('qty'),
-            price:   (float) $request->input('price'),
+            id: $request->input('id'),
+            name: $request->string('name')->toString(),
+            qty: (int) $request->input('qty'),
+            price: (float) $request->input('price'),
             options: (array) $request->input('options', []),
         );
 

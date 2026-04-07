@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace Centrex\Cart\Tests;
 
+use Centrex\Cart\CartServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Centrex\Cart\CartServiceProvider;
 
 class TestCase extends Orchestra
 {

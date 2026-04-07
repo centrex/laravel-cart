@@ -17,7 +17,7 @@ class CartItem
         public readonly float $price,
         public readonly array $options = [],
     ) {
-        $this->rowId   = self::generateRowId($id, $options);
+        $this->rowId = self::generateRowId($id, $options);
         $this->subtotal = round($qty * $price, 2);
     }
 

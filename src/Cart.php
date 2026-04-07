@@ -52,12 +52,12 @@ class Cart
             throw InvalidQtyException::mustBePositive();
         }
 
-        $item    = CartItem::make($id, $name, $qty, $price, $options);
+        $item = CartItem::make($id, $name, $qty, $price, $options);
         $content = $this->getContent();
 
         if ($content->has($item->rowId)) {
             $existing = $content->get($item->rowId);
-            $item     = $item->withQty($existing->qty + $qty);
+            $item = $item->withQty($existing->qty + $qty);
         }
 
         $content->put($item->rowId, $item);
