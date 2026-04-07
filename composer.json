@@ -1,25 +1,30 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "centrex/laravel-cart",
+    "description": "Shopping cart for Laravel with session, cookie, and database storage, Livewire components, and REST API",
     "keywords": [
-        ":vendor_name",
+        "centrex",
         "laravel",
-        ":package_slug"
+        "laravel-cart"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/centrex/laravel-cart",
     "license": "MIT",
     "type": "library",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "rochi88",
+            "email": "raisul.me@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.2",
+        "illuminate/cookie": "^11.0|^12.0|^13.0",
         "illuminate/database": "^11.0|^12.0|^13.0",
+        "illuminate/http": "^11.0|^12.0|^13.0",
         "illuminate/support": "^11.0|^12.0|^13.0"
+    },
+    "suggest": {
+        "livewire/livewire": "Required for CartIcon and CartDrawer Livewire components (^3.0)"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -37,19 +42,19 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Centrex\\Cart\\": "src/",
+            "Centrex\\Cart\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "Centrex\\Cart\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
-        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "clear": "@php vendor/bin/testbench package:purge-laravel-cart --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": [
             "@composer run prepare",
@@ -85,10 +90,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Centrex\\Cart\\CartServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "Cart": "Centrex\\Cart\\Facades\\Cart"
             }
         }
     },

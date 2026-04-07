@@ -2,13 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace VendorName\Skeleton\Commands;
+namespace Centrex\Cart\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class CartCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-cart';
 
     public $description = 'My command';
 
