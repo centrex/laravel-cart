@@ -16,12 +16,12 @@ class AddCartItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'        => ['required'],
-            'instance'  => ['nullable', 'string', 'max:100'],
-            'name'      => ['required', 'string', 'max:255'],
-            'qty'       => ['required', 'integer', 'min:1'],
-            'price'     => ['required', 'numeric', 'min:0'],
-            'options'   => ['nullable', 'array'],
+            'id'       => ['required'],
+            'instance' => ['nullable', 'string', 'max:100'],
+            'name'     => ['required', 'string', 'max:255'],
+            'qty'      => ['required', 'integer', 'min:1'],
+            'price'    => ['required', 'numeric', 'min:0'],
+            'options'  => ['nullable', 'array'],
         ];
     }
 }
