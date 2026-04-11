@@ -16,15 +16,17 @@ class CartController extends Controller
     public function __construct(private readonly Cart $cart) {}
 
     /** GET /api/cart */
-    public function index(): CartResource
+    public function index(\Illuminate\Http\Request $request): CartResource
     {
-        return new CartResource($this->cartPayload());
+        $cart = $this->resolveCart($request);
+
+        return new CartResource($this->cartPayload($cart));
     }
 
     /** POST /api/cart/items */
     public function store(AddCartItemRequest $request): CartItemResource
     {
-        $item = $this->cart->add(
+        $item = $this->resolveCart($request)->add(
             id: $request->input('id'),
             name: $request->string('name')->toString(),
             qty: (int) $request->input('qty'),
@@ -39,7 +41,7 @@ class CartController extends Controller
     public function update(UpdateCartItemRequest $request, string $rowId): CartItemResource|JsonResponse
     {
         try {
-            $item = $this->cart->update($rowId, (int) $request->input('qty'));
+            $item = $this->resolveCart($request)->update($rowId, (int) $request->input('qty'));
         } catch (CartItemNotFoundException $e) {
             return response()->json(['message' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         }
@@ -48,10 +50,10 @@ class CartController extends Controller
     }
 
     /** DELETE /api/cart/items/{rowId} */
-    public function destroy(string $rowId): JsonResponse
+    public function destroy(\Illuminate\Http\Request $request, string $rowId): JsonResponse
     {
         try {
-            $this->cart->remove($rowId);
+            $this->resolveCart($request)->remove($rowId);
         } catch (CartItemNotFoundException $e) {
             return response()->json(['message' => $e->getMessage()], Response::HTTP_NOT_FOUND);
         }
@@ -60,23 +62,30 @@ class CartController extends Controller
     }
 
     /** DELETE /api/cart */
-    public function clear(): JsonResponse
+    public function clear(\Illuminate\Http\Request $request): JsonResponse
     {
-        $this->cart->clear();
+        $this->resolveCart($request)->clear();
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 
-    private function cartPayload(): array
+    private function cartPayload(Cart $cart): array
     {
         return [
-            'instance' => $this->cart->getInstanceName(),
-            'items'    => $this->cart->content(),
-            'count'    => $this->cart->count(),
-            'lines'    => $this->cart->lines(),
-            'subtotal' => $this->cart->subtotal(),
-            'tax'      => $this->cart->tax(),
-            'total'    => $this->cart->total(),
+            'instance' => $cart->getInstanceName(),
+            'items'    => $cart->content(),
+            'count'    => $cart->count(),
+            'lines'    => $cart->lines(),
+            'subtotal' => $cart->subtotal(),
+            'tax'      => $cart->tax(),
+            'total'    => $cart->total(),
         ];
+    }
+
+    private function resolveCart(\Illuminate\Http\Request $request): Cart
+    {
+        $instance = (string) ($request->input('instance') ?: $request->query('instance') ?: config('laravel-cart.default_instance', 'default'));
+
+        return $this->cart->instance($instance);
     }
 }

@@ -142,7 +142,7 @@
                     <span>{{ number_format($total, 2) }}</span>
                 </div>
 
-                <a href="{{ url('/checkout') }}" class="btn btn-primary w-full mt-3">
+                <a href="{{ url(config('laravel-cart.checkout_url', '/checkout')) }}" class="btn btn-primary w-full mt-3">
                     Proceed to Checkout
                 </a>
             </div>
