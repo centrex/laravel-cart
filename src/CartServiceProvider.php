@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Centrex\Cart;
 
 use Centrex\Cart\Contracts\CartStorage;
+use Centrex\Cart\Services\CartCheckoutService;
 use Centrex\Cart\Storage\{CookieStorage, DatabaseStorage, SessionStorage};
 use Illuminate\Support\ServiceProvider;
 
@@ -36,6 +37,14 @@ class CartServiceProvider extends ServiceProvider
 
         // Allow resolution by class name too
         $this->app->alias('laravel-cart', Cart::class);
+
+        // Register checkout bridge only when laravel-inventory is installed
+        if (class_exists(\Centrex\Inventory\Inventory::class)) {
+            $this->app->singleton(CartCheckoutService::class, fn ($app): CartCheckoutService => new CartCheckoutService(
+                $app->make(\Centrex\Inventory\Inventory::class),
+                $app->make(Cart::class),
+            ));
+        }
     }
 
     public function boot(): void

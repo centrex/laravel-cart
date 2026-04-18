@@ -17,14 +17,15 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "illuminate/cookie": "^11.0|^12.0|^13.0",
         "illuminate/database": "^11.0|^12.0|^13.0",
         "illuminate/http": "^11.0|^12.0|^13.0",
         "illuminate/support": "^11.0|^12.0|^13.0"
     },
     "suggest": {
-        "livewire/livewire": "Required for CartIcon and CartDrawer Livewire components (^3.0)"
+        "livewire/livewire": "Required for CartIcon and CartDrawer Livewire components (^3.0)",
+        "centrex/laravel-inventory": "Required for CartCheckoutService — converts a cart into a sale order"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
