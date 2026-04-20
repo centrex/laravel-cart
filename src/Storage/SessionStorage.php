@@ -13,7 +13,23 @@ class SessionStorage implements CartStorage
     /** @return Collection<string, CartItem> */
     public function get(string $key): Collection
     {
-        return collect(session()->get($key, []));
+        return collect(session()->get($key, []))->map(function ($item) {
+            if ($item instanceof CartItem) {
+                return $item;
+            }
+
+            if (is_array($item)) {
+                return new CartItem(
+                    $item['id'],
+                    $item['name'],
+                    (int) $item['qty'],
+                    (float) $item['price'],
+                    $item['options'] ?? [],
+                );
+            }
+
+            return $item;
+        });
     }
 
     /** @param Collection<string, CartItem> $items */
