@@ -34,6 +34,7 @@ class CartCheckoutService
             'exchange_rate'   => $payload['exchange_rate'] ?? null,
             'tax_local'       => (float) ($payload['tax_local'] ?? 0),
             'discount_local'  => (float) ($payload['discount_local'] ?? 0),
+            'coupon_code'     => $payload['coupon_code'] ?? null,
             'notes'           => $payload['notes'] ?? null,
             'created_by'      => $payload['created_by'] ?? null,
             'items'           => $cartInstance->content()->map(fn ($item): array => [
