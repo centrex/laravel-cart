@@ -17,7 +17,7 @@ class CartItem
         public readonly float $price,
         public readonly array $options = [],
     ) {
-        $this->rowId = self::generateRowId($id, $options);
+        $this->rowId = $this->generateRowId($id, $options);
         $this->subtotal = round($qty * $price, 2);
     }
 
@@ -50,7 +50,7 @@ class CartItem
         ];
     }
 
-    private static function generateRowId(string|int $id, array $options): string
+    private function generateRowId(string|int $id, array $options): string
     {
         ksort($options);
 

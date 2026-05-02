@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 class SessionStorage implements CartStorage
 {
     /** @return Collection<string, CartItem> */
+    #[\Override]
     public function get(string $key): Collection
     {
         return collect(session()->get($key, []))->map(function ($item) {
@@ -33,11 +34,13 @@ class SessionStorage implements CartStorage
     }
 
     /** @param Collection<string, CartItem> $items */
+    #[\Override]
     public function put(string $key, Collection $items): void
     {
         session()->put($key, $items->all());
     }
 
+    #[\Override]
     public function forget(string $key): void
     {
         session()->forget($key);

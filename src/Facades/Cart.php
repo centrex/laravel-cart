@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Facade;
  */
 class Cart extends Facade
 {
+    #[\Override]
     protected static function getFacadeAccessor(): string
     {
         return 'laravel-cart';

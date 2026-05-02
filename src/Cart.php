@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Event;
 
 class Cart
 {
-    private string $instanceName;
+    private readonly string $instanceName;
 
     public function __construct(
         private readonly CartStorage $storage,

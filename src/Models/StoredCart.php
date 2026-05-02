@@ -10,11 +10,13 @@ class StoredCart extends Model
 {
     protected $fillable = ['instance', 'identifier', 'content'];
 
+    #[\Override]
     public function getTable(): string
     {
         return config('laravel-cart.database.table', 'carts');
     }
 
+    #[\Override]
     public function getConnectionName(): ?string
     {
         return config('laravel-cart.database.connection') ?? config('database.default');

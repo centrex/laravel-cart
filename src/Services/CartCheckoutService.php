@@ -40,7 +40,7 @@ class CartCheckoutService
             'items'           => $cartInstance->content()->map(fn ($item): array => [
                 'product_id'       => (int) $item->id,
                 'qty_ordered'      => (float) $item->qty,
-                'unit_price_local' => (float) $item->price,
+                'unit_price_local' => $item->price,
                 'discount_pct'     => (float) ($item->options['discount_pct'] ?? 0),
                 'notes'            => $item->options['notes'] ?? null,
             ])->values()->all(),

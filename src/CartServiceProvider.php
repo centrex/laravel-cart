@@ -11,6 +11,7 @@ use Illuminate\Support\ServiceProvider;
 
 class CartServiceProvider extends ServiceProvider
 {
+    #[\Override]
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'laravel-cart');
@@ -21,12 +22,10 @@ class CartServiceProvider extends ServiceProvider
         $this->app->bind(DatabaseStorage::class);
 
         // Resolve the configured storage driver
-        $this->app->bind(CartStorage::class, function ($app): CartStorage {
-            return match (config('laravel-cart.driver', 'session')) {
-                'cookie'   => $app->make(CookieStorage::class),
-                'database' => $app->make(DatabaseStorage::class),
-                default    => $app->make(SessionStorage::class),
-            };
+        $this->app->bind(CartStorage::class, fn($app): CartStorage => match (config('laravel-cart.driver', 'session')) {
+            'cookie'   => $app->make(CookieStorage::class),
+            'database' => $app->make(DatabaseStorage::class),
+            default    => $app->make(SessionStorage::class),
         });
 
         // Singleton Cart service

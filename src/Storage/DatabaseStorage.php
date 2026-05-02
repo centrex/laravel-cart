@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 class DatabaseStorage implements CartStorage
 {
     /** @return Collection<string, CartItem> */
+    #[\Override]
     public function get(string $key): Collection
     {
         $record = StoredCart::where('instance', $key)
@@ -32,6 +33,7 @@ class DatabaseStorage implements CartStorage
     }
 
     /** @param Collection<string, CartItem> $items */
+    #[\Override]
     public function put(string $key, Collection $items): void
     {
         StoredCart::updateOrCreate(
@@ -46,6 +48,7 @@ class DatabaseStorage implements CartStorage
         );
     }
 
+    #[\Override]
     public function forget(string $key): void
     {
         StoredCart::where('instance', $key)

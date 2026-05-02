@@ -17,6 +17,7 @@ class CookieStorage implements CartStorage
     ) {}
 
     /** @return Collection<string, CartItem> */
+    #[\Override]
     public function get(string $key): Collection
     {
         $cookieName = $this->cookieName($key);
@@ -42,6 +43,7 @@ class CookieStorage implements CartStorage
     }
 
     /** @param Collection<string, CartItem> $items */
+    #[\Override]
     public function put(string $key, Collection $items): void
     {
         $cookieName = $this->cookieName($key);
@@ -51,6 +53,7 @@ class CookieStorage implements CartStorage
         Cookie::queue(Cookie::make($cookieName, $encoded, $lifetime));
     }
 
+    #[\Override]
     public function forget(string $key): void
     {
         Cookie::queue(Cookie::forget($this->cookieName($key)));
