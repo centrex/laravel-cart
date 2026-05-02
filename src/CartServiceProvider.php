@@ -22,7 +22,7 @@ class CartServiceProvider extends ServiceProvider
         $this->app->bind(DatabaseStorage::class);
 
         // Resolve the configured storage driver
-        $this->app->bind(CartStorage::class, fn($app): CartStorage => match (config('laravel-cart.driver', 'session')) {
+        $this->app->bind(CartStorage::class, fn ($app): CartStorage => match (config('laravel-cart.driver', 'session')) {
             'cookie'   => $app->make(CookieStorage::class),
             'database' => $app->make(DatabaseStorage::class),
             default    => $app->make(SessionStorage::class),
